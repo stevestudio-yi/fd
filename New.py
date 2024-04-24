@@ -16,6 +16,7 @@ from torchvision.models.detection import KeypointRCNN_ResNet50_FPN_Weights
 #
 # WARNING! All changes made in this file will be lost when recompiling UI file!
 #
+#目前Main
 
 from PySide6.QtCore import (QCoreApplication, QDate, QDateTime, QLocale,
                             QMetaObject, QObject, QPoint, QRect,
