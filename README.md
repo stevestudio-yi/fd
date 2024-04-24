@@ -1,7 +1,7 @@
 # PythonApplication_Opencv_Fatigue_Detection_Algorithm_Debug
-name: fd
-platform: Windows 11 23H2 22631.3527 & macOS Sonoma 14.4.1 23E224 &ubuntu 20.04 LTS
-anaconda :v2.5.3
+-name: fd
+-platform: Windows 11 23H2 22631.3527 & macOS Sonoma 14.4.1 23E224 &ubuntu 20.04 LTS
+-anaconda :v2.5.3
 channels:
   - defaults
 dependencies:
