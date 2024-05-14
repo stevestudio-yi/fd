@@ -23,7 +23,7 @@ from PySide6.QtGui import (QAction, QBrush, QColor, QConicalGradient,
                            QPainter, QPalette, QPixmap, QRadialGradient,
                            QTransform)
 from PySide6.QtWidgets import (QApplication, QLabel, QMainWindow, QPushButton,
-                               QSizePolicy, QStatusBar, QTextEdit, QWidget, QLineEdit)
+                               QSizePolicy, QStatusBar, QTextEdit, QWidget, QLineEdit, QMessageBox)
 
 from test import Ui_MainWindow
 
@@ -45,6 +45,8 @@ class Ui_FD_Main_Window(QMainWindow):
         self.data_set_ear_tired = 0.8
         self.data_set_mar = 0.2
         self.data_set_mar_tired = 0.8
+        self.data_close_eyes_count = 0
+        self.data_close_eyes_set_sleep = 0.3
         self.data_ear_freq = 0
         self.data_mar_freq = 0
         self.data_time_count = 0
@@ -68,6 +70,7 @@ class Ui_FD_Main_Window(QMainWindow):
         self.parameter_data2.setText("%.2f" % self.data_set_ear_tired)
         self.parameter_data3.setText("%.2f" % self.data_set_mar)
         self.parameter_data4.setText("%.2f" % self.data_set_mar_tired)
+        self.parameter_data5.setText("%.2f" % self.data_close_eyes_set_sleep)
 
     def setupUi(self, FD_Main_Window):
         if not FD_Main_Window.objectName():
@@ -118,7 +121,7 @@ class Ui_FD_Main_Window(QMainWindow):
         self.parameter_title.setFont(font)
         self.detail_data = QLabel(self.centralwidget)
         self.detail_data.setObjectName(u"detail_data")
-        self.detail_data.setGeometry(QRect(680, 610, 58, 16))
+        self.detail_data.setGeometry(QRect(750, 610, 58, 16))
         self.detail_data.setFont(font)
         self.parameter_data1 = QLineEdit(self.centralwidget)
         self.parameter_data1.setObjectName(u"parameter_data1")
@@ -126,7 +129,7 @@ class Ui_FD_Main_Window(QMainWindow):
         self.parameter_data1.setFont(font)
         self.parameter_data2 = QLineEdit(self.centralwidget)
         self.parameter_data2.setObjectName(u"parameter_data2")
-        self.parameter_data2.setGeometry(QRect(600, 640, 71, 31))
+        self.parameter_data2.setGeometry(QRect(630, 640, 71, 31))
         self.parameter_data2.setFont(font)
         self.parameter_data3 = QLineEdit(self.centralwidget)
         self.parameter_data3.setObjectName(u"parameter_data3")
@@ -134,23 +137,26 @@ class Ui_FD_Main_Window(QMainWindow):
         self.parameter_data3.setFont(font)
         self.parameter_data4 = QLineEdit(self.centralwidget)
         self.parameter_data4.setObjectName(u"parameter_data4")
-        self.parameter_data4.setGeometry(QRect(600, 690, 71, 31))
+        self.parameter_data4.setGeometry(QRect(630, 690, 71, 31))
         self.parameter_data4.setFont(font)
+        self.parameter_data5 = QLineEdit(self.centralwidget)
+        self.parameter_data5.setObjectName(u"parameter_data5")
+        self.parameter_data5.setGeometry(QRect(450, 740, 71, 31))
         self.ear_data = QLabel(self.centralwidget)
         self.ear_data.setObjectName(u"ear_data")
-        self.ear_data.setGeometry(QRect(680, 640, 181, 20))
+        self.ear_data.setGeometry(QRect(760, 640, 181, 20))
         self.ear_data.setFont(font)
         self.mar_data = QLabel(self.centralwidget)
         self.mar_data.setObjectName(u"mar_data")
-        self.mar_data.setGeometry(QRect(680, 670, 161, 16))
+        self.mar_data.setGeometry(QRect(760, 700, 161, 16))
         self.mar_data.setFont(font)
         self.ear_freq = QLabel(self.centralwidget)
         self.ear_freq.setObjectName(u"ear_freq")
-        self.ear_freq.setGeometry(QRect(870, 640, 181, 16))
+        self.ear_freq.setGeometry(QRect(950, 640, 181, 16))
         self.ear_freq.setFont(font)
         self.mar_freq = QLabel(self.centralwidget)
         self.mar_freq.setObjectName(u"mar_freq")
-        self.mar_freq.setGeometry(QRect(870, 670, 181, 16))
+        self.mar_freq.setGeometry(QRect(950, 700, 181, 16))
         self.mar_freq.setFont(font)
         self.parameter_1 = QLabel(self.centralwidget)
         self.parameter_1.setObjectName(u"parameter_1")
@@ -158,7 +164,7 @@ class Ui_FD_Main_Window(QMainWindow):
         self.parameter_1.setFont(font)
         self.parameter_2 = QLabel(self.centralwidget)
         self.parameter_2.setObjectName(u"parameter_2")
-        self.parameter_2.setGeometry(QRect(540, 650, 58, 16))
+        self.parameter_2.setGeometry(QRect(540, 650, 70, 16))
         self.parameter_2.setFont(font)
         self.parameter_3 = QLabel(self.centralwidget)
         self.parameter_3.setObjectName(u"parameter_3")
@@ -166,8 +172,12 @@ class Ui_FD_Main_Window(QMainWindow):
         self.parameter_3.setFont(font)
         self.parameter_4 = QLabel(self.centralwidget)
         self.parameter_4.setObjectName(u"parameter_4")
-        self.parameter_4.setGeometry(QRect(540, 700, 58, 16))
+        self.parameter_4.setGeometry(QRect(540, 700, 75, 16))
         self.parameter_4.setFont(font)
+        self.parameter_5 = QLabel(self.centralwidget)
+        self.parameter_5.setObjectName(u"parameter_5")
+        self.parameter_5.setGeometry(QRect(390, 750, 58, 16))
+        self.parameter_5.setFont(font)
         self.statue_output = QLabel(self.centralwidget)
         self.statue_output.setObjectName(u"statue_output")
         self.statue_output.setGeometry(QRect(680, 20, 341, 31))
@@ -211,6 +221,7 @@ class Ui_FD_Main_Window(QMainWindow):
         self.parameter_3.setText(QCoreApplication.translate("FD_Main_Window", u"mar\u9600\u503c", None))
         self.parameter_4.setText(QCoreApplication.translate("FD_Main_Window", u"mar\u75b2\u52b3\u9600"
                                                                               u"\u503c", None))
+        self.parameter_5.setText(QCoreApplication.translate("FD_Main_Window", u"\u95ed\u773c\u9600\u503c", None))
         self.statue_output.setText(
             QCoreApplication.translate("FD_Main_Window", u"\u76ee\u524d\u72b6\u6001\uff1a", None))
 
@@ -242,13 +253,13 @@ class Ui_FD_Main_Window(QMainWindow):
         ret, frame = self.camera.read()
         if ret:
             frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
-            # grey = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
-            # faces = detector(grey)
-            # for face in faces:
-            #     landmarks = predictor(grey, face)
-            #     for i in range(68):
-            #         x, y = landmarks.part(i).x, landmarks.part(i).y
-            #         cv2.circle(frame, (x, y), 2, (0, 255, 0), -1)
+            grey = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+            faces = detector(grey)
+            for face in faces:
+                landmarks = predictor(grey, face)
+                for i in range(68):
+                    x, y = landmarks.part(i).x, landmarks.part(i).y
+                    cv2.circle(frame, (x, y), 2, (0, 255, 0), -1)
             # if len(faces) == 0:
             #     self.ear_data.setText("眼部开合度：%s" % none_faces)
             #     self.mar_data.setText("嘴部开合度：%s" % none_faces)
@@ -264,12 +275,18 @@ class Ui_FD_Main_Window(QMainWindow):
             pixmap = QPixmap.fromImage(image)
             self.camera_main.setPixmap(pixmap)
 
+    def warning_msg(self):
+        warn = QMessageBox.critical(self, '警告',
+                                   '被检测者可能已经睡着',
+                                   buttons=QMessageBox.Ok | QMessageBox.Cancel)
+
     def update_data(self):
         self.data_set_ear = float(self.parameter_data1.text())
         self.data_set_ear_tired = float(self.parameter_data2.text())
         self.data_set_mar = float(self.parameter_data3.text())
         self.data_set_mar_tired = float(self.parameter_data4.text())
-        self.data_time_count = self.data_time_count + 0.25
+        self.data_close_eyes_set_sleep = float(self.parameter_data5.text())
+        self.data_time_count = self.data_time_count + 0.5
         if not self.camera.isOpened():
             return
         ret, frame = self.camera.read()
@@ -285,6 +302,8 @@ class Ui_FD_Main_Window(QMainWindow):
             if len(faces) > 0:
                 self.data_ear: float = ear_count(landmarks)
                 self.data_mar: float = mar_count(landmarks)
+                if self.data_ear < self.data_close_eyes_set_sleep:
+                    self.data_close_eyes_count += 1
                 self.ear_data.setText("眼部开合度：%.2f" % self.data_ear)
                 self.mar_data.setText("嘴部开合度：%.2f" % self.data_mar)
             else:
@@ -311,6 +330,8 @@ class Ui_FD_Main_Window(QMainWindow):
                 self.data_ear_gap = abs(self.data_ear - self.data_ear_delay)
                 self.data_mar_gap = abs(self.data_mar - self.data_mar_delay)
                 print("%.4f" % self.data_ear_gap)
+                if self.data_ear_delay < self.data_close_eyes_set_sleep:
+                    self.data_close_eyes_count += 1
                 if self.data_mar_gap > self.data_set_mar:
                     self.data_mar_freq = self.data_mar_freq + 1
                 if self.data_ear_gap > self.data_set_ear:
@@ -322,6 +343,7 @@ class Ui_FD_Main_Window(QMainWindow):
                 self.ear_data.setText("眼部开合度：%s" % none_faces)
                 self.mar_data.setText("嘴部开合度：%s" % none_faces)
         if self.data_time_count == 5:
+            print(self.data_close_eyes_count)
             self.ear_freq_ps = self.data_ear_freq / self.data_time_count
             self.mar_freq_ps = self.data_mar_freq / (4 * self.data_time_count)
             if self.mar_freq_ps > self.data_set_mar_tired:
@@ -330,12 +352,17 @@ class Ui_FD_Main_Window(QMainWindow):
             if self.ear_freq_ps > self.data_set_ear_tired:
                 self.statue_output.setStyleSheet("QLabel { color: red; }")
                 self.statue_output.setText("目前状态：疲劳")
+            if self.data_close_eyes_count >= ((4 * self.data_time_count) - 1):
+                self.statue_output.setStyleSheet("QLabel { color: red; background:yellow}")
+                self.statue_output.setText("目前状态：警告 已睡着")
+                self.warning_msg()
             else:
                 self.statue_output.setStyleSheet("QLabel { color: black; }")
                 self.statue_output.setText("目前状态：正常")
             self.data_time_count = 0
             self.data_ear_freq = 0
             self.data_mar_freq = 0
+            self.data_close_eyes_count = 0
 
 
 def ear_count(landmarks):
